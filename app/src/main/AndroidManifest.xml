@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Required so Volley can download trivia questions from the web API -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.SmartTriviaHub">
+
+        <!-- Activity 1: User Registration & Entrance (launcher) -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Activity 2: Web-Connected Trivia Quiz Hub -->
+        <activity
+            android:name=".QuizActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+
+        <!-- Activity 3: Performance Analytics & Breakdown -->
+        <activity
+            android:name=".ResultActivity"
+            android:exported="false" />
+    </application>
+
+</manifest>

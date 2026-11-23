@@ -1,0 +1,216 @@
+<resources>
+    <string name="app_name">Smart Trivia Hub</string>
+
+    <!-- ========== Main Activity: Player registration ========== -->
+    <string name="main_title">Smart Learning &amp; Trivia Assessment Hub</string>
+    <string name="main_subtitle">Create your player profile, pick an arena and clear 10 levels of live trivia!</string>
+    <string name="logo_desc">Poké Ball logo</string>
+    <string name="label_name">Player Name</string>
+    <string name="label_student_id">Player ID (Student ID)</string>
+    <string name="label_programme">Team (Programme / Group)</string>
+    <string name="label_category">Choose Arena</string>
+    <string name="label_difficulty">Game Mode</string>
+    <string name="hint_name">e.g. Ahmad bin Ali</string>
+    <string name="hint_student_id">e.g. DSE123456</string>
+    <string name="hint_programme">e.g. DSE 5A</string>
+    <string name="btn_start">▶  START GAME</string>
+    <string name="welcome_toast">Player %1$s ready! Loading level 1…</string>
+
+    <!-- Validation messages -->
+    <string name="err_name_empty">Enter your player name</string>
+    <string name="err_name_invalid">Letters only, 3 to 50 characters</string>
+    <string name="err_id_empty">Player ID is required</string>
+    <string name="err_id_invalid">6 to 12 letters or digits, no spaces</string>
+    <string name="err_programme_empty">Team (Programme / Group) is required</string>
+    <string name="err_programme_invalid">Must be 2 to 30 characters</string>
+    <string name="err_form_summary">Can\'t start yet. Fix the highlighted fields!</string>
+
+    <!-- Arenas. Pokémon (PokeAPI) is first so it is the default; the rest are Open Trivia DB categories. -->
+    <string-array name="category_names">
+        <item>⚡ Pokémon (Legendary &amp; Fun Facts)</item>
+        <item>🎮 Video Games</item>
+        <item>🎲 Board Games</item>
+        <item>🌀 Random Mix</item>
+        <item>🧠 General Knowledge</item>
+        <item>💻 Computers</item>
+        <item>🎬 Film</item>
+        <item>🎵 Music</item>
+        <item>⛩ Anime &amp; Manga</item>
+        <item>📺 Cartoons</item>
+        <item>🔬 Science &amp; Nature</item>
+        <item>⚽ Sports</item>
+        <item>🏛 History</item>
+    </string-array>
+    <!-- Category IDs, same order as category_names (-1 = Pokémon via PokeAPI, 0 = any Open Trivia DB category) -->
+    <integer-array name="category_ids">
+        <item>-1</item>
+        <item>15</item>
+        <item>16</item>
+        <item>0</item>
+        <item>9</item>
+        <item>18</item>
+        <item>11</item>
+        <item>12</item>
+        <item>31</item>
+        <item>32</item>
+        <item>17</item>
+        <item>21</item>
+        <item>23</item>
+    </integer-array>
+    <string-array name="difficulty_names">
+        <item>Mixed Mode</item>
+        <item>Easy Mode</item>
+        <item>Normal Mode</item>
+        <item>Hard Mode</item>
+    </string-array>
+    <string-array name="difficulty_values" translatable="false">
+        <item>any</item>
+        <item>easy</item>
+        <item>medium</item>
+        <item>hard</item>
+    </string-array>
+
+    <!-- ========== Quiz Activity (game HUD) ========== -->
+    <string name="quiz_greeting">Player: %1$s</string>
+    <string name="progress_format">Level %1$d / %2$d</string>
+    <string name="score_format">★ %1$d XP</string>
+    <string name="category_difficulty_format">%1$s • %2$s</string>
+    <string name="loading_questions">Loading level…</string>
+    <string name="feedback_desc">Answer feedback indicator</string>
+    <string name="btn_next">Next Level ▶</string>
+    <string name="btn_finish">See Results ▶</string>
+    <string name="btn_retry">Try Again</string>
+    <string name="btn_back_home">Back</string>
+    <string name="toast_correct">Nice hit! +1 XP</string>
+    <string name="combo_toast">🔥 COMBO x%1$d! +1 XP</string>
+    <string name="snack_wrong">Missed! Correct answer: %1$s</string>
+    <string name="pick_answer_hint">Choose your answer or use a lifeline</string>
+
+    <!-- Network / API errors -->
+    <string name="error_title">Connection lost</string>
+    <string name="err_no_internet">No internet connection. Check your Wi-Fi or mobile data and try again.</string>
+    <string name="err_timeout">The game server took too long to respond. Please try again.</string>
+    <string name="err_server">Game server error. Please try again later.</string>
+    <string name="err_parse">The level data could not be read.</string>
+    <string name="err_not_enough">Not enough questions in this arena and mode. Go back and choose another.</string>
+    <string name="err_rate_limit">Too many requests. Wait 5 seconds and try again.</string>
+    <string name="err_unknown">Something went wrong. Please try again.</string>
+
+    <!-- Quit dialog -->
+    <string name="quit_title">Quit game?</string>
+    <string name="quit_message">Your progress in this run will be lost.</string>
+    <string name="quit_yes">Quit</string>
+    <string name="quit_no">Keep playing</string>
+
+    <!-- ========== Result Activity (game over screen) ========== -->
+    <string name="result_title">GAME OVER: YOUR STATS</string>
+    <string name="result_student_format">%1$s (%2$s) • Team %3$s</string>
+    <string name="percent_format">%1$.0f%%</string>
+    <string name="score_summary_format">%1$d / %2$d levels cleared</string>
+    <string name="correct_count_format">Hits: %1$d</string>
+    <string name="wrong_count_format">Misses: %1$d</string>
+    <string name="grade_format">Rank %1$s</string>
+    <string name="grade_a_msg">LEGENDARY! You beat the game.</string>
+    <string name="grade_b_msg">PRO PLAYER! Great run.</string>
+    <string name="grade_c_msg">ROOKIE. Level up and try again!</string>
+    <string name="grade_f_msg">GAME OVER. Insert coin to retry!</string>
+    <string name="breakdown_title">Level Replay</string>
+    <string name="item_number_format">L%1$d</string>
+    <string name="your_answer_format">Your answer: %1$s</string>
+    <string name="correct_answer_format">Correct answer: %1$s</string>
+    <string name="result_icon_desc">Result status icon</string>
+    <string name="btn_retake">↻ Play Again</string>
+    <string name="btn_restart">New Player</string>
+    <!-- ========== Pokémon arena (questions built from live PokeAPI data) ========== -->
+    <string name="poke_category">Pokémon</string>
+    <string name="pokemon_image_desc">Pokémon artwork, shown as a silhouette until you answer</string>
+    <string name="loading_ball_desc">Spinning Poké Ball</string>
+
+    <!-- ========== Lifelines (each can be used once per game) ========== -->
+    <string name="lifeline_fifty">½ 50:50</string>
+    <string name="lifeline_hint">💡 Hint</string>
+    <string name="lifeline_revive">❤ Revive</string>
+    <string name="lifeline_revive_on">❤ Revive ON</string>
+    <string name="toast_fifty">50:50 used! Two wrong answers removed.</string>
+    <string name="toast_revive_armed">Revive ready! Your next wrong answer gets a second try.</string>
+    <string name="snack_revive_used">❤ Revive used! \"%1$s\" was wrong. Try again!</string>
+    <string name="hint_format">💡 Pokédex hint: the answer starts with \"%1$s\" and has %2$d characters.</string>
+    <string name="poke_q_dex">Who\'s that Pokémon? Pokédex entry: “%1$s”</string>
+    <string name="poke_q_status">What kind of Pokémon is %1$s?</string>
+    <string name="poke_q_generation">In which generation did %1$s first appear?</string>
+    <string name="poke_q_color">What is %1$s\'s official Pokédex colour?</string>
+    <string name="poke_hidden_name">\?\?\?</string>
+    <string-array name="poke_status_names">
+        <item>Legendary Pokémon</item>
+        <item>Mythical Pokémon</item>
+        <item>Baby Pokémon</item>
+        <item>Regular Pokémon</item>
+    </string-array>
+    <string-array name="poke_generation_names">
+        <item>Generation I (Kanto)</item>
+        <item>Generation II (Johto)</item>
+        <item>Generation III (Hoenn)</item>
+        <item>Generation IV (Sinnoh)</item>
+        <item>Generation V (Unova)</item>
+        <item>Generation VI (Kalos)</item>
+        <item>Generation VII (Alola)</item>
+        <item>Generation VIII (Galar)</item>
+        <item>Generation IX (Paldea)</item>
+    </string-array>
+    <!-- Values exactly as PokeAPI returns them, same order as poke_generation_names -->
+    <string-array name="poke_generation_values" translatable="false">
+        <item>generation-i</item>
+        <item>generation-ii</item>
+        <item>generation-iii</item>
+        <item>generation-iv</item>
+        <item>generation-v</item>
+        <item>generation-vi</item>
+        <item>generation-vii</item>
+        <item>generation-viii</item>
+        <item>generation-ix</item>
+    </string-array>
+    <string-array name="poke_color_names">
+        <item>Black</item>
+        <item>Blue</item>
+        <item>Brown</item>
+        <item>Gray</item>
+        <item>Green</item>
+        <item>Pink</item>
+        <item>Purple</item>
+        <item>Red</item>
+        <item>White</item>
+        <item>Yellow</item>
+    </string-array>
+    <!-- PokeAPI colour values, same order as poke_color_names -->
+    <string-array name="poke_color_values" translatable="false">
+        <item>black</item>
+        <item>blue</item>
+        <item>brown</item>
+        <item>gray</item>
+        <item>green</item>
+        <item>pink</item>
+        <item>purple</item>
+        <item>red</item>
+        <item>white</item>
+        <item>yellow</item>
+    </string-array>
+    <!-- National Pokédex numbers of Legendary and Mythical Pokémon (half of every Pokémon round uses these) -->
+    <integer-array name="legendary_ids">
+        <item>144</item><item>145</item><item>146</item><item>150</item><item>151</item>
+        <item>243</item><item>244</item><item>245</item><item>249</item><item>250</item><item>251</item>
+        <item>377</item><item>378</item><item>379</item><item>380</item><item>381</item><item>382</item>
+        <item>383</item><item>384</item><item>385</item><item>386</item>
+        <item>480</item><item>481</item><item>482</item><item>483</item><item>484</item><item>485</item>
+        <item>486</item><item>487</item><item>488</item><item>489</item><item>490</item><item>491</item>
+        <item>492</item><item>493</item>
+        <item>638</item><item>639</item><item>640</item><item>641</item><item>642</item><item>643</item>
+        <item>644</item><item>645</item><item>646</item><item>647</item><item>648</item><item>649</item>
+        <item>716</item><item>717</item><item>718</item><item>719</item><item>720</item><item>721</item>
+        <item>785</item><item>786</item><item>787</item><item>788</item><item>789</item><item>790</item>
+        <item>791</item><item>792</item><item>800</item><item>801</item><item>802</item><item>807</item>
+        <item>888</item><item>889</item><item>890</item><item>891</item><item>892</item><item>893</item>
+        <item>894</item><item>895</item><item>896</item><item>897</item><item>898</item>
+        <item>1001</item><item>1002</item><item>1003</item><item>1004</item><item>1007</item><item>1008</item>
+        <item>1014</item><item>1015</item><item>1016</item><item>1017</item><item>1024</item><item>1025</item>
+    </integer-array>
+</resources>

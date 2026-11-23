@@ -1,0 +1,31 @@
+<!-- Poké Ball: red top, white bottom, dark band and centre button -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Red top half -->
+    <path
+        android:fillColor="@color/pokeball_red"
+        android:pathData="M2,12A10,10 0,0 1,22 12Z" />
+    <!-- White bottom half -->
+    <path
+        android:fillColor="@color/white"
+        android:pathData="M2,12A10,10 0,0 0,22 12Z" />
+    <!-- Outline -->
+    <path
+        android:pathData="M2.6,12a9.4,9.4 0,1 0,18.8 0a9.4,9.4 0,1 0,-18.8 0"
+        android:strokeWidth="1.2"
+        android:strokeColor="@color/pokeball_dark" />
+    <!-- Middle band -->
+    <path
+        android:fillColor="@color/pokeball_dark"
+        android:pathData="M2.3,11.2h19.4v1.6h-19.4z" />
+    <!-- Centre button -->
+    <path
+        android:fillColor="@color/pokeball_dark"
+        android:pathData="M8.7,12a3.3,3.3 0,1 0,6.6 0a3.3,3.3 0,1 0,-6.6 0" />
+    <path
+        android:fillColor="@color/white"
+        android:pathData="M10.2,12a1.8,1.8 0,1 0,3.6 0a1.8,1.8 0,1 0,-3.6 0" />
+</vector>

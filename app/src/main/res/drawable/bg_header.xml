@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Soft blue HUD banner for the quiz header -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:angle="0"
+        android:endColor="@color/header_end"
+        android:startColor="@color/header_start" />
+    <corners android:radius="@dimen/card_radius" />
+</shape>

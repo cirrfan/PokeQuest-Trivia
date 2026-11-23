@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One row of the answer breakdown. Green card = correct, red card = incorrect.
+     All colours/icons are chosen by Data Binding expressions from the Question object. -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+
+        <variable name="item" type="com.example.smarttriviahub.model.Question" />
+        <variable name="number" type="int" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/space_s"
+        app:cardBackgroundColor="@{item.correct ? @color/correct_light : @color/wrong_light}"
+        app:cardCornerRadius="@dimen/button_radius"
+        app:cardElevation="0dp"
+        app:strokeColor="@{item.correct ? @color/correct : @color/wrong}"
+        app:strokeWidth="1dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space_m">
+
+            <TextView
+                android:id="@+id/tvNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{@string/item_number_format(number)}"
+                android:textColor="@color/primary_dark"
+                android:textSize="@dimen/text_body"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Q1" />
+
+            <ImageView
+                android:id="@+id/imgStatus"
+                android:layout_width="@dimen/item_icon_size"
+                android:layout_height="@dimen/item_icon_size"
+                android:contentDescription="@string/result_icon_desc"
+                android:src="@{item.correct ? @drawable/ic_correct : @drawable/ic_wrong}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_correct" />
+
+            <TextView
+                android:id="@+id/tvItemQuestion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_s"
+                android:layout_marginEnd="@dimen/space_s"
+                android:text="@{item.questionText}"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_body"
+                app:layout_constraintEnd_toStartOf="@id/imgStatus"
+                app:layout_constraintStart_toEndOf="@id/tvNumber"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="What does CPU stand for?" />
+
+            <TextView
+                android:id="@+id/tvYourAnswer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_s"
+                android:text="@{@string/your_answer_format(item.userAnswer)}"
+                android:textColor="@{item.correct ? @color/correct : @color/wrong}"
+                android:textSize="@dimen/text_small"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@id/tvItemQuestion"
+                app:layout_constraintStart_toStartOf="@id/tvItemQuestion"
+                app:layout_constraintTop_toBottomOf="@id/tvItemQuestion"
+                tools:text="Your answer: Central Processing Unit" />
+
+            <TextView
+                android:id="@+id/tvCorrectAnswer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_xs"
+                android:text="@{@string/correct_answer_format(item.correctAnswer)}"
+                android:textColor="@color/correct"
+                android:textSize="@dimen/text_small"
+                android:visibility="@{item.correct ? View.GONE : View.VISIBLE}"
+                app:layout_constraintEnd_toEndOf="@id/tvItemQuestion"
+                app:layout_constraintStart_toStartOf="@id/tvItemQuestion"
+                app:layout_constraintTop_toBottomOf="@id/tvYourAnswer"
+                tools:text="Correct answer: Central Processing Unit" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

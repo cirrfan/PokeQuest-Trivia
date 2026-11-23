@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Inside of the question card: feedback ImageView, category/difficulty and the question text.
+     Bound to a Question object passed in from activity_quiz. -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <variable name="question" type="com.example.smarttriviahub.model.Question" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/space_l">
+
+        <!-- Pokémon artwork (silhouette until answered) + answer feedback icon, side by side -->
+        <LinearLayout
+            android:id="@+id/imageRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imgPokemon"
+                android:layout_width="@dimen/pokemon_image_size"
+                android:layout_height="@dimen/pokemon_image_size"
+                android:layout_marginEnd="@dimen/space_s"
+                android:contentDescription="@string/pokemon_image_desc"
+                android:scaleType="fitCenter"
+                android:visibility="@{question.pokemon ? View.VISIBLE : View.GONE}"
+                tools:src="@drawable/ic_pokeball" />
+
+            <ImageView
+                android:id="@+id/imgFeedback"
+                android:layout_width="@dimen/feedback_icon_size"
+                android:layout_height="@dimen/feedback_icon_size"
+                android:contentDescription="@string/feedback_desc"
+                android:src="@drawable/ic_question" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvCategory"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_s"
+            android:gravity="center"
+            android:text="@{@string/category_difficulty_format(question.category, question.difficulty)}"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/text_small"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageRow"
+            tools:text="Science: Computers • Easy" />
+
+        <TextView
+            android:id="@+id/tvQuestion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_s"
+            android:gravity="center"
+            android:text="@{question.questionText}"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_question"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvCategory"
+            tools:text="What does CPU stand for?" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

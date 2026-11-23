@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- QUIZ ACTIVITY (landscape) – question card on the left, answer buttons on the right.
+     Same IDs and variables as the portrait layout so QuizActivity.java works unchanged. -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+
+        <variable name="question" type="com.example.smarttriviahub.model.Question" />
+        <variable name="greeting" type="String" />
+        <variable name="progressLabel" type="String" />
+        <variable name="scoreLabel" type="String" />
+        <variable name="errorMessage" type="String" />
+        <variable name="isLoading" type="boolean" />
+        <variable name="hasError" type="boolean" />
+        <variable name="answered" type="boolean" />
+        <variable name="isLastQuestion" type="boolean" />
+        <!-- Lifelines: each one can be used once per game -->
+        <variable name="fiftyAvailable" type="boolean" />
+        <variable name="hintAvailable" type="boolean" />
+        <variable name="reviveAvailable" type="boolean" />
+        <variable name="reviveArmed" type="boolean" />
+        <variable name="hintMessage" type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rootQuiz"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_gradient"
+        tools:context=".QuizActivity">
+
+        <!-- ===================== QUIZ CONTENT ===================== -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/contentLayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="@dimen/space_s"
+            android:visibility="@{(!isLoading &amp;&amp; !hasError) ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <include
+                android:id="@+id/header"
+                layout="@layout/quiz_header"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:greeting="@{greeting}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:progressLabel="@{progressLabel}"
+                app:scoreLabel="@{scoreLabel}" />
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/progressQuiz"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_xs"
+                app:indicatorColor="@color/accent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/header"
+                app:trackColor="@color/primary_light"
+                app:trackCornerRadius="@dimen/space_xs"
+                app:trackThickness="@dimen/space_xs" />
+
+            <ScrollView
+                android:id="@+id/scrollQuiz"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/space_xs"
+                android:layout_marginBottom="@dimen/space_xs"
+                android:fillViewport="true"
+                app:layout_constraintBottom_toTopOf="@id/btnNext"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/progressQuiz">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideHalf"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.5" />
+
+                    <!-- Left column: question -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardQuestion"
+                        style="@style/AppCard"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/space_xs"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/guideHalf"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <include
+                            android:id="@+id/questionBody"
+                            layout="@layout/quiz_question_body"
+                            app:question="@{question}" />
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Right column: answers (vertically centred as a packed chain) -->
+                    <TextView
+                        android:id="@+id/tvHint"
+                        style="@style/SubtitleText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pick_answer_hint"
+                        android:visibility="@{answered ? View.INVISIBLE : View.VISIBLE}"
+                        app:layout_constraintBottom_toTopOf="@id/lifelineBar"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/guideHalf"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                    <!-- Lifeline bar: 50:50, Pokédex Hint, Revive -->
+                    <LinearLayout
+                        android:id="@+id/lifelineBar"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_s"
+                        android:layout_marginStart="@dimen/space_s"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/guideHalf"
+                        app:layout_constraintTop_toBottomOf="@id/tvHint"
+                        app:layout_constraintBottom_toTopOf="@id/tvPokedexHint">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnFifty"
+                            style="@style/LifelineButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="@dimen/space_xs"
+                            android:enabled="@{fiftyAvailable &amp;&amp; !answered}"
+                            android:text="@string/lifeline_fifty" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnHint"
+                            style="@style/LifelineButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="@dimen/space_xs"
+                            android:enabled="@{hintAvailable &amp;&amp; !answered}"
+                            android:text="@string/lifeline_hint" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnRevive"
+                            style="@style/LifelineButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:enabled="@{reviveAvailable &amp;&amp; !reviveArmed &amp;&amp; !answered}"
+                            android:text="@{reviveArmed ? @string/lifeline_revive_on : @string/lifeline_revive}" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvPokedexHint"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_s"
+                        android:layout_marginStart="@dimen/space_s"
+                        android:background="@drawable/bg_hint"
+                        android:padding="@dimen/space_s"
+                        android:text="@{hintMessage}"
+                        android:textColor="@color/text_primary"
+                        android:textSize="@dimen/text_small"
+                        android:visibility="@{hintMessage != null ? View.VISIBLE : View.GONE}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/guideHalf"
+                        app:layout_constraintTop_toBottomOf="@id/lifelineBar"
+                        app:layout_constraintBottom_toTopOf="@id/btnOption1"
+                        tools:text="Hint" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnOption1"
+                        style="@style/OptionButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_s"
+                        android:text="@{question.options[0]}"
+                        app:layout_constraintBottom_toTopOf="@id/btnOption2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/guideHalf"
+                        app:layout_constraintTop_toBottomOf="@id/tvPokedexHint"
+                        tools:text="Option A" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnOption2"
+                        style="@style/OptionButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_s"
+                        android:text="@{question.options[1]}"
+                        app:layout_constraintBottom_toTopOf="@id/btnOption3"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/guideHalf"
+                        app:layout_constraintTop_toBottomOf="@id/btnOption1"
+                        tools:text="Option B" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnOption3"
+                        style="@style/OptionButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_s"
+                        android:text="@{question.options[2]}"
+                        app:layout_constraintBottom_toTopOf="@id/btnOption4"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/guideHalf"
+                        app:layout_constraintTop_toBottomOf="@id/btnOption2"
+                        tools:text="Option C" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnOption4"
+                        style="@style/OptionButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_s"
+                        android:text="@{question.options[3]}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/guideHalf"
+                        app:layout_constraintTop_toBottomOf="@id/btnOption3"
+                        tools:text="Option D" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </ScrollView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnNext"
+                style="@style/PrimaryButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{isLastQuestion ? @string/btn_finish : @string/btn_next}"
+                android:visibility="@{answered ? View.VISIBLE : View.INVISIBLE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintWidth_max="@dimen/card_max_width"
+                tools:text="@string/btn_next" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- ===================== LOADING STATE ===================== -->
+        <LinearLayout
+            android:id="@+id/loadingLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="@{isLoading ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone">
+
+            <!-- Spinning Poké Ball (animation started in QuizActivity.showLoadingState) -->
+            <ImageView
+                android:id="@+id/imgLoadingBall"
+                android:layout_width="@dimen/loading_ball_size"
+                android:layout_height="@dimen/loading_ball_size"
+                android:contentDescription="@string/loading_ball_desc"
+                android:src="@drawable/ic_pokeball" />
+
+            <TextView
+                style="@style/SubtitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_m"
+                android:text="@string/loading_questions" />
+        </LinearLayout>
+
+        <!-- ===================== ERROR STATE ===================== -->
+        <ScrollView
+            android:id="@+id/errorScroll"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="@{hasError ? View.VISIBLE : View.GONE}"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_max="@dimen/card_max_width"
+            tools:visibility="gone">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/errorCard"
+                style="@style/AppCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_m">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="@dimen/space_m">
+
+                    <ImageView
+                        android:layout_width="@dimen/feedback_icon_size"
+                        android:layout_height="@dimen/feedback_icon_size"
+                        android:contentDescription="@string/error_title"
+                        android:src="@drawable/ic_wrong" />
+
+                    <TextView
+                        style="@style/TitleText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/error_title" />
+
+                    <TextView
+                        android:id="@+id/tvErrorMessage"
+                        style="@style/SubtitleText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_xs"
+                        android:gravity="center"
+                        android:text="@{errorMessage}"
+                        tools:text="@string/err_no_internet" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_m"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnBack"
+                            style="@style/SecondaryButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/space_s"
+                            android:layout_weight="1"
+                            android:text="@string/btn_back_home" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnRetry"
+                            style="@style/PrimaryButton"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/btn_retry" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

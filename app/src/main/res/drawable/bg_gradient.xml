@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- White to soft blue gradient used as the background of every screen -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:angle="270"
+        android:endColor="@color/bg_gradient_end"
+        android:startColor="@color/bg_gradient_start"
+        android:type="linear" />
+</shape>

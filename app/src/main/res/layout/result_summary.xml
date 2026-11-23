@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Score summary card content: ring with percentage, grade, counts.
+     Reused by portrait and landscape activity_result. -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="studentLine" type="String" />
+        <variable name="percentText" type="String" />
+        <variable name="scoreSummary" type="String" />
+        <variable name="correctCount" type="String" />
+        <variable name="wrongCount" type="String" />
+        <variable name="gradeLabel" type="String" />
+        <variable name="gradeMessage" type="String" />
+        <variable name="gradeColor" type="int" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/space_l">
+
+        <ImageView
+            android:id="@+id/imgResult"
+            android:layout_width="@dimen/feedback_icon_size"
+            android:layout_height="@dimen/feedback_icon_size"
+            android:contentDescription="@string/result_icon_desc"
+            android:src="@drawable/ic_trophy"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvResultTitle"
+            style="@style/TitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/result_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imgResult" />
+
+        <TextView
+            android:id="@+id/tvStudent"
+            style="@style/SubtitleText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{studentLine}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvResultTitle"
+            tools:text="Ahmad (DSE123456) • DSE 5A" />
+
+        <!-- Circular ring showing the percentage -->
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/ringScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_m"
+            android:max="100"
+            app:indicatorSize="@dimen/result_ring_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvStudent"
+            app:trackColor="@color/primary_light"
+            app:trackCornerRadius="@dimen/space_s"
+            app:trackThickness="@dimen/result_ring_thickness" />
+
+        <TextView
+            android:id="@+id/tvPercent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{percentText}"
+            android:textColor="@{gradeColor}"
+            android:textSize="@dimen/text_percent"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/ringScore"
+            app:layout_constraintEnd_toEndOf="@id/ringScore"
+            app:layout_constraintStart_toStartOf="@id/ringScore"
+            app:layout_constraintTop_toTopOf="@id/ringScore"
+            tools:text="80%" />
+
+        <TextView
+            android:id="@+id/tvGrade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_m"
+            android:text="@{gradeLabel}"
+            android:textColor="@{gradeColor}"
+            android:textSize="@dimen/text_title"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ringScore"
+            tools:text="Grade A" />
+
+        <TextView
+            android:id="@+id/tvGradeMessage"
+            style="@style/SubtitleText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{gradeMessage}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvGrade"
+            tools:text="@string/grade_a_msg" />
+
+        <TextView
+            android:id="@+id/tvScoreSummary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_s"
+            android:text="@{scoreSummary}"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_body"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvGradeMessage"
+            tools:text="8 / 10 correct" />
+
+        <TextView
+            android:id="@+id/tvCorrectCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_s"
+            android:layout_marginEnd="@dimen/space_m"
+            android:drawablePadding="@dimen/space_xs"
+            android:gravity="center_vertical"
+            android:text="@{correctCount}"
+            android:textColor="@color/correct"
+            android:textSize="@dimen/text_body"
+            android:textStyle="bold"
+            app:drawableStartCompat="@drawable/ic_correct"
+            app:layout_constraintEnd_toStartOf="@id/tvWrongCount"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvScoreSummary"
+            tools:text="Correct: 8" />
+
+        <TextView
+            android:id="@+id/tvWrongCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/space_xs"
+            android:gravity="center_vertical"
+            android:text="@{wrongCount}"
+            android:textColor="@color/wrong"
+            android:textSize="@dimen/text_body"
+            android:textStyle="bold"
+            app:drawableStartCompat="@drawable/ic_wrong"
+            app:layout_constraintBaseline_toBaselineOf="@id/tvCorrectCount"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvCorrectCount"
+            tools:text="Incorrect: 2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

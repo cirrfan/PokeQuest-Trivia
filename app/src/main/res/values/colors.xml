@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ===== Light game palette: white base + soft blue ===== -->
+    <color name="primary">#3B82F6</color>          <!-- soft game blue (buttons, highlights) -->
+    <color name="primary_dark">#1E3A8A</color>     <!-- deep navy for titles -->
+    <color name="primary_light">#DBEAFE</color>    <!-- pale blue track for progress bars -->
+    <color name="accent">#38BDF8</color>           <!-- sky blue (logo, progress) -->
+    <color name="gold">#FACC15</color>             <!-- XP / score gold -->
+    <color name="on_primary">#FFFFFF</color>
+
+    <!-- Backgrounds and surfaces -->
+    <color name="bg_gradient_start">#FFFFFF</color>
+    <color name="bg_gradient_end">#E0F2FE</color>
+    <color name="header_start">#60A5FA</color>
+    <color name="header_end">#2563EB</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="card_stroke">#BFDBFE</color>
+    <color name="divider">#DBEAFE</color>
+
+    <!-- Text -->
+    <color name="text_primary">#0F172A</color>
+    <color name="text_secondary">#64748B</color>
+    <color name="text_on_gold">#422006</color>
+    <color name="header_subtext">#EFF6FF</color>
+
+    <!-- Answer feedback -->
+    <color name="correct">#16A34A</color>
+    <color name="correct_light">#DCFCE7</color>
+    <color name="wrong">#E11D48</color>
+    <color name="wrong_light">#FFE4E6</color>
+    <color name="option_default">#FFFFFF</color>
+    <color name="option_stroke">#93C5FD</color>
+
+    <!-- Rank colours -->
+    <color name="grade_a">#EAB308</color>
+    <color name="grade_b">#3B82F6</color>
+    <color name="grade_c">#8B5CF6</color>
+    <color name="grade_f">#E11D48</color>
+
+    <!-- Poké Ball and Pokémon silhouette -->
+    <color name="pokeball_red">#EF4444</color>
+    <color name="pokeball_dark">#1F2937</color>
+    <color name="silhouette">#1E293B</color>
+    <color name="hint_bg">#FEF9C3</color>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>

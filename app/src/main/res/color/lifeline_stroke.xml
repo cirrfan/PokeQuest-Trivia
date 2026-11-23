@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Lifeline button outline: pale once the lifeline is used -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/divider" android:state_enabled="false" />
+    <item android:color="@color/primary" />
+</selector>

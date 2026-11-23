@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- RESULT ACTIVITY (portrait) – summary card + scrollable answer breakdown + action buttons -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="studentLine" type="String" />
+        <variable name="percentText" type="String" />
+        <variable name="scoreSummary" type="String" />
+        <variable name="correctCount" type="String" />
+        <variable name="wrongCount" type="String" />
+        <variable name="gradeLabel" type="String" />
+        <variable name="gradeMessage" type="String" />
+        <variable name="gradeColor" type="int" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rootResult"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_gradient"
+        tools:context=".ResultActivity">
+
+        <ScrollView
+            android:id="@+id/scrollResult"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/buttonBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/space_m">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardSummary"
+                    style="@style/AppCard"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_max="@dimen/card_max_width">
+
+                    <include
+                        android:id="@+id/summary"
+                        layout="@layout/result_summary"
+                        app:correctCount="@{correctCount}"
+                        app:gradeColor="@{gradeColor}"
+                        app:gradeLabel="@{gradeLabel}"
+                        app:gradeMessage="@{gradeMessage}"
+                        app:percentText="@{percentText}"
+                        app:scoreSummary="@{scoreSummary}"
+                        app:studentLine="@{studentLine}"
+                        app:wrongCount="@{wrongCount}" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:id="@+id/tvBreakdownTitle"
+                    style="@style/TitleText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_l"
+                    android:text="@string/breakdown_title"
+                    app:layout_constraintEnd_toEndOf="@id/cardSummary"
+                    app:layout_constraintStart_toStartOf="@id/cardSummary"
+                    app:layout_constraintTop_toBottomOf="@id/cardSummary" />
+
+                <!-- One item_breakdown card per question is added here from Java -->
+                <LinearLayout
+                    android:id="@+id/breakdownContainer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_s"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="@id/cardSummary"
+                    app:layout_constraintStart_toStartOf="@id/cardSummary"
+                    app:layout_constraintTop_toBottomOf="@id/tvBreakdownTitle" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/buttonBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/space_m"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_max="@dimen/card_max_width">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRetake"
+                style="@style/SecondaryButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/space_s"
+                android:layout_weight="1"
+                android:text="@string/btn_retake" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRestart"
+                style="@style/PrimaryButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/btn_restart" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
