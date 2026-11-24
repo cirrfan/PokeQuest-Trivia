@@ -51,7 +51,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvResultTitle"
-            tools:text="Ahmad (DSE123456) • DSE 5A" />
+            tools:text="Ahmad (DSE123456) • Team DSE 5A" />
 
         <!-- Circular ring showing the percentage -->
         <com.google.android.material.progressindicator.CircularProgressIndicator
@@ -94,7 +94,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ringScore"
-            tools:text="Grade A" />
+            tools:text="Rank A" />
 
         <TextView
             android:id="@+id/tvGradeMessage"
@@ -120,7 +120,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvGradeMessage"
-            tools:text="8 / 10 correct" />
+            tools:text="8 / 10 levels cleared" />
 
         <TextView
             android:id="@+id/tvCorrectCount"
@@ -139,7 +139,7 @@
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvScoreSummary"
-            tools:text="Correct: 8" />
+            tools:text="Hits: 8" />
 
         <TextView
             android:id="@+id/tvWrongCount"
@@ -155,7 +155,7 @@
             app:layout_constraintBaseline_toBaselineOf="@id/tvCorrectCount"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/tvCorrectCount"
-            tools:text="Incorrect: 2" />
+            tools:text="Misses: 2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -37,7 +37,7 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Q1" />
+                tools:text="L1" />
 
             <ImageView
                 android:id="@+id/imgStatus"
@@ -61,7 +61,7 @@
                 app:layout_constraintEnd_toStartOf="@id/imgStatus"
                 app:layout_constraintStart_toEndOf="@id/tvNumber"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="What does CPU stand for?" />
+                tools:text="In which generation did Pikachu first appear?" />
 
             <TextView
                 android:id="@+id/tvYourAnswer"
@@ -75,7 +75,7 @@
                 app:layout_constraintEnd_toEndOf="@id/tvItemQuestion"
                 app:layout_constraintStart_toStartOf="@id/tvItemQuestion"
                 app:layout_constraintTop_toBottomOf="@id/tvItemQuestion"
-                tools:text="Your answer: Central Processing Unit" />
+                tools:text="Your answer: Generation I (Kanto)" />
 
             <TextView
                 android:id="@+id/tvCorrectAnswer"
@@ -89,7 +89,7 @@
                 app:layout_constraintEnd_toEndOf="@id/tvItemQuestion"
                 app:layout_constraintStart_toStartOf="@id/tvItemQuestion"
                 app:layout_constraintTop_toBottomOf="@id/tvYourAnswer"
-                tools:text="Correct answer: Central Processing Unit" />
+                tools:text="Correct answer: Generation I (Kanto)" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

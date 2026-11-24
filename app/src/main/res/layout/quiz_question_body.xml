@@ -57,7 +57,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageRow"
-            tools:text="Science: Computers • Easy" />
+            tools:text="Pokémon • Easy" />
 
         <TextView
             android:id="@+id/tvQuestion"
@@ -73,7 +73,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvCategory"
-            tools:text="What does CPU stand for?" />
+            tools:text="In which generation did Pikachu first appear?" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
