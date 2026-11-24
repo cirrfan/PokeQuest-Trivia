@@ -5,7 +5,6 @@ import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Log;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -40,7 +39,6 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -56,8 +54,8 @@ import java.util.Set;
 
 /**
  * ACTIVITY 2 – Web-Connected Trivia Quiz Hub.
- * 1. Downloads 10 questions from the Open Trivia DB REST API using Volley.
- * 2. Parses the JSONObject / JSONArray response into Question objects.
+ * 1. Downloads 10 random Pokémon from the PokeAPI REST API using Volley.
+ * 2. Turns each JSONObject response into a Question (PokemonQuestionFactory).
  * 3. Shows each question through Data Binding (ActivityQuizBinding).
  * 4. Handles answer clicks: updates the score, ImageView feedback and Toast/Snackbar popups.
  * 5. Sends the results to ResultActivity in a Bundle.
@@ -65,7 +63,7 @@ import java.util.Set;
 public class QuizActivity extends AppCompatActivity {
 
     private static final String TAG = "QuizActivity";
-    private static final String REQUEST_TAG = "trivia_request";
+    private static final String REQUEST_TAG = "pokeapi_request";
 
     // Keys for saving state when the screen rotates
     private static final String STATE_QUESTIONS = "state_questions";
@@ -154,113 +152,13 @@ public class QuizActivity extends AppCompatActivity {
 
     // ============================== VOLLEY WEB API ==============================
 
-    /** Builds the API URL from the category/difficulty the student picked. */
-    private String buildApiUrl() {
-        StringBuilder url = new StringBuilder(AppConstants.API_BASE_URL)
-                .append("?amount=").append(AppConstants.QUESTION_AMOUNT)
-                .append("&type=multiple");
-
-        int categoryId = studentBundle.getInt(AppConstants.KEY_CATEGORY_ID, 0);
-        if (categoryId > 0) {
-            url.append("&category=").append(categoryId);
-        }
-        String difficulty = studentBundle.getString(AppConstants.KEY_DIFFICULTY, "any");
-        if (!"any".equals(difficulty)) {
-            url.append("&difficulty=").append(difficulty);
-        }
-        return url.toString();
-    }
-
-    /** Sends a GET request with Volley and parses the JSON response. */
-    private void fetchQuestions() {
-        showLoadingState();
-        if (studentBundle.getInt(AppConstants.KEY_CATEGORY_ID, 0) == AppConstants.POKEMON_CATEGORY_ID) {
-            fetchPokemonQuestions();
-            return;
-        }
-        String url = buildApiUrl();
-        Log.d(TAG, "Volley GET -> " + url);
-
-        JsonObjectRequest request = new JsonObjectRequest(
-                Request.Method.GET, url, null,
-                response -> {
-                    if (isFinishing() || isDestroyed()) return;
-                    Log.d(TAG, "Volley response received");
-                    handleResponse(response);
-                },
-                error -> {
-                    if (isFinishing() || isDestroyed()) return;
-                    Log.e(TAG, "Volley error: " + error);
-                    showErrorState(getString(mapVolleyError(error)));
-                });
-
-        // 10 second timeout, retry once
-        request.setRetryPolicy(new DefaultRetryPolicy(10000, 1, 1f));
-        request.setTag(REQUEST_TAG);
-        requestQueue.add(request);
-    }
-
     /**
-     * Example response:
-     * { "response_code": 0,
-     *   "results": [ { "category": "...", "difficulty": "easy", "question": "...",
-     *                  "correct_answer": "...", "incorrect_answers": ["..","..",".."] }, ... ] }
-     */
-    private void handleResponse(JSONObject response) {
-        try {
-            int responseCode = response.getInt("response_code");
-            if (responseCode != 0) {
-                Log.w(TAG, "API response_code = " + responseCode);
-                showErrorState(getString(mapApiCode(responseCode)));
-                return;
-            }
-
-            JSONArray results = response.getJSONArray("results");
-            ArrayList<Question> parsed = new ArrayList<>();
-
-            for (int i = 0; i < results.length(); i++) {
-                JSONObject obj = results.getJSONObject(i);
-
-                JSONArray wrongArray = obj.getJSONArray("incorrect_answers");
-                List<String> wrongAnswers = new ArrayList<>();
-                for (int j = 0; j < wrongArray.length(); j++) {
-                    wrongAnswers.add(decodeHtml(wrongArray.getString(j)));
-                }
-
-                parsed.add(new Question(
-                        decodeHtml(obj.getString("category")),
-                        obj.getString("difficulty"),
-                        decodeHtml(obj.getString("question")),
-                        decodeHtml(obj.getString("correct_answer")),
-                        wrongAnswers));
-            }
-
-            if (parsed.isEmpty()) {
-                showErrorState(getString(R.string.err_not_enough));
-                return;
-            }
-
-            questions = parsed;
-            currentIndex = 0;
-            score = 0;
-            streak = 0;
-            resetLifelines();
-            Log.d(TAG, "Parsed " + questions.size() + " questions");
-            showQuizState();
-            renderQuestion();
-
-        } catch (JSONException e) {
-            Log.e(TAG, "JSON parsing failed", e);
-            showErrorState(getString(R.string.err_parse));
-        }
-    }
-
-    /**
-     * Pokémon arena: sends one Volley GET per Pokémon to PokeAPI
+     * Sends one Volley GET per Pokémon to PokeAPI
      * (e.g. https://pokeapi.co/api/v2/pokemon-species/150) and builds the
      * 10 questions once every JSONObject has arrived.
      */
-    private void fetchPokemonQuestions() {
+    private void fetchQuestions() {
+        showLoadingState();
         PokemonQuestionFactory factory = new PokemonQuestionFactory(getResources());
         List<Integer> ids = factory.pickPokemonIds(AppConstants.QUESTION_AMOUNT, AppConstants.MAX_POKEMON_ID);
         JSONObject[] downloaded = new JSONObject[ids.size()];
@@ -315,31 +213,14 @@ public class QuizActivity extends AppCompatActivity {
         }
     }
 
-    /** The API returns text like "&quot;Hello&quot;" – convert it to normal text. */
-    private static String decodeHtml(String text) {
-        return Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY).toString();
-    }
-
     private static int mapVolleyError(VolleyError error) {
         if (error instanceof NoConnectionError) return R.string.err_no_internet;
         if (error instanceof TimeoutError) return R.string.err_timeout;
         if (error instanceof ServerError) {
-            // HTTP 429 = Too Many Requests (Open Trivia DB allows 1 request every 5 seconds)
-            if (error.networkResponse != null && error.networkResponse.statusCode == 429) {
-                return R.string.err_rate_limit;
-            }
             return R.string.err_server;
         }
         if (error instanceof ParseError) return R.string.err_parse;
         return R.string.err_unknown;
-    }
-
-    private static int mapApiCode(int code) {
-        switch (code) {
-            case 1:  return R.string.err_not_enough;  // No results
-            case 5:  return R.string.err_rate_limit;  // Rate limit
-            default: return R.string.err_unknown;
-        }
     }
 
     // ============================== SCREEN STATES ==============================

@@ -11,7 +11,6 @@ public final class AppConstants {
     public static final String KEY_NAME = "key_student_name";
     public static final String KEY_STUDENT_ID = "key_student_id";
     public static final String KEY_PROGRAMME = "key_programme";
-    public static final String KEY_CATEGORY_ID = "key_category_id";
     public static final String KEY_DIFFICULTY = "key_difficulty";
 
     // Quiz results (QuizActivity -> ResultActivity)
@@ -19,12 +18,8 @@ public final class AppConstants {
     public static final String KEY_TOTAL = "key_total";
     public static final String KEY_QUESTIONS = "key_questions";
 
-    // Web API
+    // Web API: questions are built from live PokeAPI data
     public static final int QUESTION_AMOUNT = 10;
-    public static final String API_BASE_URL = "https://opentdb.com/api.php";
-
-    // Pokémon arena: questions are built from live PokeAPI data
-    public static final int POKEMON_CATEGORY_ID = -1;
     public static final String POKEAPI_SPECIES_URL = "https://pokeapi.co/api/v2/pokemon-species/";
     public static final int MAX_POKEMON_ID = 1025;
     // Official artwork from the PokeAPI sprites repository; %d = National Pokédex number

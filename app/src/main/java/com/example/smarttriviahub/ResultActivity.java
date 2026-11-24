@@ -136,7 +136,6 @@ public class ResultActivity extends AppCompatActivity {
         bundle.putString(AppConstants.KEY_NAME, resultBundle.getString(AppConstants.KEY_NAME));
         bundle.putString(AppConstants.KEY_STUDENT_ID, resultBundle.getString(AppConstants.KEY_STUDENT_ID));
         bundle.putString(AppConstants.KEY_PROGRAMME, resultBundle.getString(AppConstants.KEY_PROGRAMME));
-        bundle.putInt(AppConstants.KEY_CATEGORY_ID, resultBundle.getInt(AppConstants.KEY_CATEGORY_ID, 0));
         bundle.putString(AppConstants.KEY_DIFFICULTY, resultBundle.getString(AppConstants.KEY_DIFFICULTY, "any"));
 
         Intent intent = new Intent(ResultActivity.this, QuizActivity.class);

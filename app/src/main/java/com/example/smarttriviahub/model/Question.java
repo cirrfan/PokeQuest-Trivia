@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * MODEL (the "M" in MVC).
- * Holds one trivia question downloaded from the Open Trivia DB API,
+ * Holds one Pokémon trivia question built from PokeAPI data,
  * plus the answer the student picked. It is Serializable so a whole
  * list of questions can be put inside a Bundle and sent to ResultActivity,
  * or saved in onSaveInstanceState() when the screen rotates.

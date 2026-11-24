@@ -53,13 +53,8 @@ public class MainActivity extends AppCompatActivity {
         binding.formFields.btnStart.setOnClickListener(v -> onStartClicked());
     }
 
-    /** Fill the Category and Difficulty spinners from strings.xml arrays. */
+    /** Fill the Game Mode spinner from the strings.xml array. */
     private void setupSpinners() {
-        ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter.createFromResource(
-                this, R.array.category_names, R.layout.item_spinner);
-        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        binding.formFields.spinnerCategory.setAdapter(categoryAdapter);
-
         ArrayAdapter<CharSequence> difficultyAdapter = ArrayAdapter.createFromResource(
                 this, R.array.difficulty_names, R.layout.item_spinner);
         difficultyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -95,8 +90,6 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        int categoryId = getResources().getIntArray(R.array.category_ids)
-                [binding.formFields.spinnerCategory.getSelectedItemPosition()];
         String difficulty = getResources().getStringArray(R.array.difficulty_values)
                 [binding.formFields.spinnerDifficulty.getSelectedItemPosition()];
 
@@ -105,11 +98,10 @@ public class MainActivity extends AppCompatActivity {
         bundle.putString(AppConstants.KEY_NAME, name);
         bundle.putString(AppConstants.KEY_STUDENT_ID, studentId);
         bundle.putString(AppConstants.KEY_PROGRAMME, programme);
-        bundle.putInt(AppConstants.KEY_CATEGORY_ID, categoryId);
         bundle.putString(AppConstants.KEY_DIFFICULTY, difficulty);
 
         Log.d(TAG, "Starting QuizActivity for " + name + " (" + studentId + ")"
-                + " category=" + categoryId + " difficulty=" + difficulty);
+                + " difficulty=" + difficulty);
 
         Toast.makeText(this, getString(R.string.welcome_toast, name), Toast.LENGTH_SHORT).show();
 

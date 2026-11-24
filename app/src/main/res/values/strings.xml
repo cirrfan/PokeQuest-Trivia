@@ -3,12 +3,11 @@
 
     <!-- ========== Main Activity: Player registration ========== -->
     <string name="main_title">Smart Learning &amp; Trivia Assessment Hub</string>
-    <string name="main_subtitle">Create your player profile, pick an arena and clear 10 levels of live trivia!</string>
+    <string name="main_subtitle">Create your player profile, pick a game mode and clear 10 levels of live Pokémon trivia!</string>
     <string name="logo_desc">Poké Ball logo</string>
     <string name="label_name">Player Name</string>
     <string name="label_student_id">Player ID (Student ID)</string>
     <string name="label_programme">Team (Programme / Group)</string>
-    <string name="label_category">Choose Arena</string>
     <string name="label_difficulty">Game Mode</string>
     <string name="hint_name">e.g. Ahmad bin Ali</string>
     <string name="hint_student_id">e.g. DSE123456</string>
@@ -25,38 +24,6 @@
     <string name="err_programme_invalid">Must be 2 to 30 characters</string>
     <string name="err_form_summary">Can\'t start yet. Fix the highlighted fields!</string>
 
-    <!-- Arenas. Pokémon (PokeAPI) is first so it is the default; the rest are Open Trivia DB categories. -->
-    <string-array name="category_names">
-        <item>⚡ Pokémon (Legendary &amp; Fun Facts)</item>
-        <item>🎮 Video Games</item>
-        <item>🎲 Board Games</item>
-        <item>🌀 Random Mix</item>
-        <item>🧠 General Knowledge</item>
-        <item>💻 Computers</item>
-        <item>🎬 Film</item>
-        <item>🎵 Music</item>
-        <item>⛩ Anime &amp; Manga</item>
-        <item>📺 Cartoons</item>
-        <item>🔬 Science &amp; Nature</item>
-        <item>⚽ Sports</item>
-        <item>🏛 History</item>
-    </string-array>
-    <!-- Category IDs, same order as category_names (-1 = Pokémon via PokeAPI, 0 = any Open Trivia DB category) -->
-    <integer-array name="category_ids">
-        <item>-1</item>
-        <item>15</item>
-        <item>16</item>
-        <item>0</item>
-        <item>9</item>
-        <item>18</item>
-        <item>11</item>
-        <item>12</item>
-        <item>31</item>
-        <item>32</item>
-        <item>17</item>
-        <item>21</item>
-        <item>23</item>
-    </integer-array>
     <string-array name="difficulty_names">
         <item>Mixed Mode</item>
         <item>Easy Mode</item>
@@ -92,8 +59,6 @@
     <string name="err_timeout">The game server took too long to respond. Please try again.</string>
     <string name="err_server">Game server error. Please try again later.</string>
     <string name="err_parse">The level data could not be read.</string>
-    <string name="err_not_enough">Not enough questions in this arena and mode. Go back and choose another.</string>
-    <string name="err_rate_limit">Too many requests. Wait 5 seconds and try again.</string>
     <string name="err_unknown">Something went wrong. Please try again.</string>
 
     <!-- Quit dialog -->

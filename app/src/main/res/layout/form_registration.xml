@@ -73,37 +73,7 @@
                 android:maxLength="30" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Category spinner -->
-        <TextView
-            android:id="@+id/tvCategoryLabel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_m"
-            android:text="@string/label_category"
-            android:textColor="@color/text_secondary"
-            android:textSize="@dimen/text_small"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilProgramme" />
-
-        <!-- Arena and Game Mode are stacked full width so long names are not cut off -->
-        <FrameLayout
-            android:id="@+id/frameCategory"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_xs"
-            android:background="@drawable/bg_input_outline"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvCategoryLabel">
-
-            <Spinner
-                android:id="@+id/spinnerCategory"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/button_height" />
-        </FrameLayout>
-
-        <!-- Difficulty spinner -->
+        <!-- Game Mode spinner (decides which kinds of Pokémon questions are asked) -->
         <TextView
             android:id="@+id/tvDifficultyLabel"
             android:layout_width="0dp"
@@ -114,7 +84,7 @@
             android:textSize="@dimen/text_small"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/frameCategory" />
+            app:layout_constraintTop_toBottomOf="@id/tilProgramme" />
 
         <FrameLayout
             android:id="@+id/frameDifficulty"
