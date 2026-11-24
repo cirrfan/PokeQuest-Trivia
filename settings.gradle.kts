@@ -22,5 +22,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "SmartTriviaHub"
+rootProject.name = "PokeQuestTrivia"
 include(":app")
