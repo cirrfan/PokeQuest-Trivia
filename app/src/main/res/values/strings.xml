@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Smart Trivia Hub</string>
+    <string name="app_name">PokéQuest Trivia</string>
 
     <!-- ========== Main Activity: Player registration ========== -->
-    <string name="main_title">Smart Learning &amp; Trivia Assessment Hub</string>
-    <string name="main_subtitle">Create your player profile, pick a game mode and clear 10 levels of live Pokémon trivia!</string>
+    <string name="main_title">PokéQuest Trivia</string>
+    <string name="main_subtitle">A Smart Learning &amp; Trivia Assessment Hub. Create your player profile, pick a game mode and clear 10 levels of live Pokémon trivia!</string>
     <string name="logo_desc">Poké Ball logo</string>
     <string name="label_name">Player Name</string>
     <string name="label_student_id">Player ID (Student ID)</string>
